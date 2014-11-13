@@ -1,0 +1,28 @@
+{
+  "name": "twinky",
+  "description": "simple collector to send navigation timings to InfluxDB",
+  "version": "0.1.0",
+  "main": "twinky.js",
+  "homepage": "http://github.com/sbeam/twinky",
+  "author": "Zack Bloom <zackbloom@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sbeam/twinky.git"
+  },
+  "keywords": [
+    "client-side",
+    "statistics",
+    "data",
+    "graphite",
+    "twinky",
+    "OpenTSDB"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

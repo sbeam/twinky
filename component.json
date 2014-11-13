@@ -1,0 +1,17 @@
+{
+  "name": "twinky",
+  "repo": "sbeam/twinky",
+  "description": "Collect navigation.performance timings and send to InfluxDB",
+  "version": "0.1.0",
+  "homepage": "http://github.com/sbeam/twinky",
+  "license": "MIT",
+  "keywords": [
+    "client-side",
+    "statistics",
+    "data",
+    "graphite"
+  ],
+  "scripts": [
+    "twinky.js"
+  ]
+}
