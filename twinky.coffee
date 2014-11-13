@@ -31,7 +31,7 @@ Twinky = ->
       for name, value of metrics
           points = [value]
           points.push tags[tag] for tag of tags
-          data_points.push { name: name, columns: columns, points: points }
+          data_points.push { name: name, columns: columns, points: [ points ] }
 
       data_points
 
@@ -56,7 +56,7 @@ Twinky = ->
 
     req.setRequestHeader 'Content-Type', 'application/javascript'
 
-    req.send columnize(timings(), tags)
+    req.send JSON.stringify(columnize(timings(), tags))
 
   @endpoint = (url) ->
     influxdb_api_endpoint = url

@@ -28,8 +28,8 @@ describe 'send', ->
     window.performance = { timing: { navigationStart: 10000000, domInteractive: 10000777, domLoading: 10000333 } }
     Twinky.send({page: 'foo', version: '789f0'})
 
-    expect(server.requests[0].requestBody).toEqual([
-        { "name":"domLoading","columns":["value","page","version"],"points":[333,"foo",'789f0'] },
-        { "name":"domInteractive","columns":["value","page","version"],"points":[444,"foo",'789f0'] },
-    ])
+    expect(server.requests[0].requestBody).toEqual(JSON.stringify([
+        { "name":"domLoading","columns":["value","page","version"],"points":[[333,"foo",'789f0']] },
+        { "name":"domInteractive","columns":["value","page","version"],"points":[[444,"foo",'789f0']] },
+    ]))
 

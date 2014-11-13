@@ -46,7 +46,7 @@
         data_points.push({
           name: name,
           columns: columns,
-          points: points
+          points: [points]
         });
       }
       return data_points;
@@ -74,7 +74,7 @@
       req = xhrRequest();
       req.open('POST', influxdb_api_endpoint, true);
       req.setRequestHeader('Content-Type', 'application/javascript');
-      return req.send(columnize(timings(), tags));
+      return req.send(JSON.stringify(columnize(timings(), tags)));
     };
     this.endpoint = function(url) {
       return influxdb_api_endpoint = url;

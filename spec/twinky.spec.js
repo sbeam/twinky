@@ -38,17 +38,17 @@
         page: 'foo',
         version: '789f0'
       });
-      return expect(server.requests[0].requestBody).toEqual([
+      return expect(server.requests[0].requestBody).toEqual(JSON.stringify([
         {
           "name": "domLoading",
           "columns": ["value", "page", "version"],
-          "points": [333, "foo", '789f0']
+          "points": [[333, "foo", '789f0']]
         }, {
           "name": "domInteractive",
           "columns": ["value", "page", "version"],
-          "points": [444, "foo", '789f0']
+          "points": [[444, "foo", '789f0']]
         }
-      ]);
+      ]));
     });
   });
 
