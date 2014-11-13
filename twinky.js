@@ -65,7 +65,7 @@
         if (typeof window.addEventListener === "function") {
           window.addEventListener('load', function() {
             return setTimeout(function() {
-              return _this.send.call(_this);
+              return _this.send.call(_this, tags);
             }, 500);
           }, false);
         }

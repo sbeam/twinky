@@ -45,7 +45,7 @@ Twinky = ->
     if document.readyState in ['uninitialized', 'loading']      # The data isn't fully ready until document load
         window.addEventListener? 'load', =>
             setTimeout =>
-                @send.call(@)
+                @send.call(@, tags)
             , 500
         , false
 
