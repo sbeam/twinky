@@ -57,7 +57,7 @@
         _this = this;
       if (typeof influxdb_api_endpoint === 'undefined') {
         if (typeof console !== "undefined" && console !== null) {
-          console.error('Twinky: Not sending. You must set InfluxDB influxdb_api_endpoint');
+          console.error('Twinky: Not sending. You must call Twinky.endpoint() with the InfluxDB URL');
         }
         return;
       }
