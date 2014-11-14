@@ -1,4 +1,6 @@
 (function() {
+  var _this = this;
+
   describe('Twinky', function() {
     it('should be defined', function() {
       return expect(Twinky).toBeDefined();
@@ -12,16 +14,18 @@
   });
 
   describe('send', function() {
-    var server;
-    server = null;
     beforeEach(function() {
-      server = sinon.fakeServer.create();
-      return server.autoRespond = true;
+      var _this = this;
+      this.xhr = sinon.useFakeXMLHttpRequest();
+      this.xhr.requests = [];
+      return this.xhr.onCreate = function(xhr) {
+        return _this.xhr.requests.push(xhr);
+      };
     });
     afterEach(function() {
-      return server.restore();
+      return this.xhr.restore();
     });
-    it('should error without an endpoint', function() {
+    it('should log error when send() is called without an endpoint', function() {
       var consoleSpy;
       consoleSpy = sinon.stub(console, 'error').returns(null);
       Twinky.send();
@@ -30,7 +34,9 @@
     it('should send a request', function() {
       Twinky.endpoint('http://stats.example.com/db/big-metric/series');
       Twinky.send();
-      return expect(server.requests.length).toBe(1);
+      expect(this.xhr.requests.length).toBe(1);
+      expect(this.xhr.requests[0].url).toEqual('http://stats.example.com/db/big-metric/series');
+      return expect(this.xhr.requests[0].method).toEqual('POST');
     });
     return it('sends the correct datapoints', function() {
       window.performance = {
@@ -45,7 +51,7 @@
         page: 'foo',
         version: '789f0'
       });
-      return expect(server.requests[0].requestBody).toEqual(JSON.stringify([
+      return expect(this.xhr.requests[0].requestBody).toEqual(JSON.stringify([
         {
           "name": "domLoading",
           "columns": ["value", "page", "version"],
