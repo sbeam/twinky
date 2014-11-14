@@ -14,18 +14,24 @@ describe 'send', ->
   beforeEach ->
     server = sinon.fakeServer.create()
     server.autoRespond = true
-    Twinky.endpoint( 'http://stats.example.com/db/big-metric/series' )
 
   afterEach ->
     server.restore()
 
+  it 'should log error when send() is called without an endpoint', ->
+    consoleSpy = sinon.stub(console, 'error').returns(null)
+    Twinky.send()
+    expect(consoleSpy.called).toBeTruthy()
+
   it 'should send a request', ->
+    Twinky.endpoint( 'http://stats.example.com/db/big-metric/series' )
     Twinky.send()
 
     expect(server.requests.length).toBe(1)
 
   it 'sends the correct datapoints', ->
     window.performance = { timing: { navigationStart: 10000000, domInteractive: 10000777, domLoading: 10000333 } }
+    Twinky.endpoint( 'http://stats.example.com/db/big-metric/series' )
     Twinky.send({page: 'foo', version: '789f0'})
 
     expect(server.requests[0].requestBody).toEqual(

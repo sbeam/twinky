@@ -38,9 +38,8 @@ Twinky = ->
   influxdb_api_endpoint = null
 
   @send = (tags)->
-    if typeof influxdb_api_endpoint is 'undefined'
-        console?.error 'Twinky: Not sending. You must call Twinky.endpoint() with the InfluxDB URL'
-        return
+    if not influxdb_api_endpoint
+        return console?.error 'Twinky: Not sending. You must call Twinky.endpoint() with the InfluxDB URL'
 
     if document.readyState in ['uninitialized', 'loading']      # The data isn't fully ready until document load
         window.addEventListener? 'load', =>

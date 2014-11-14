@@ -16,13 +16,19 @@
     server = null;
     beforeEach(function() {
       server = sinon.fakeServer.create();
-      server.autoRespond = true;
-      return Twinky.endpoint('http://stats.example.com/db/big-metric/series');
+      return server.autoRespond = true;
     });
     afterEach(function() {
       return server.restore();
     });
+    it('should error without an endpoint', function() {
+      var consoleSpy;
+      consoleSpy = sinon.stub(console, 'error').returns(null);
+      Twinky.send();
+      return expect(consoleSpy.called).toBeTruthy();
+    });
     it('should send a request', function() {
+      Twinky.endpoint('http://stats.example.com/db/big-metric/series');
       Twinky.send();
       return expect(server.requests.length).toBe(1);
     });
@@ -34,6 +40,7 @@
           domLoading: 10000333
         }
       };
+      Twinky.endpoint('http://stats.example.com/db/big-metric/series');
       Twinky.send({
         page: 'foo',
         version: '789f0'

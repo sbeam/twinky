@@ -55,11 +55,8 @@
     this.send = function(tags) {
       var req, _ref,
         _this = this;
-      if (typeof influxdb_api_endpoint === 'undefined') {
-        if (typeof console !== "undefined" && console !== null) {
-          console.error('Twinky: Not sending. You must call Twinky.endpoint() with the InfluxDB URL');
-        }
-        return;
+      if (!influxdb_api_endpoint) {
+        return typeof console !== "undefined" && console !== null ? console.error('Twinky: Not sending. You must call Twinky.endpoint() with the InfluxDB URL') : void 0;
       }
       if ((_ref = document.readyState) === 'uninitialized' || _ref === 'loading') {
         if (typeof window.addEventListener === "function") {
